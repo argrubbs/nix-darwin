@@ -18,10 +18,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dotfiles = {
-      url = "github:argrubbs/dotfiles";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {
@@ -32,7 +28,6 @@
     homebrew-core,
     homebrew-cask,
     home-manager,
-    dotfiles,
   }: let
     configuration = {pkgs, ...}: {
       nix.enable = false;
@@ -48,7 +43,7 @@
         pkgs.brave
       ];
 
-      programs.zsh.enable = true;
+      security.pam.services.sudo_local.touchIdAuth = true;
 
       programs._1password = {
         enable = true;
@@ -57,12 +52,13 @@
       programs._1password-gui = {
         enable = true;
       };
-
+      programs.zsh.enable = true;
       users.users.adamgrubbs = {
         name = "adamgrubbs";
         home = "/Users/adamgrubbs";
         shell = pkgs.zsh;
       };
+
       home-manager.backupFileExtension = "backup";
 
       environment.systemPath = [
@@ -111,7 +107,6 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.adamgrubbs = import ./home.nix;
-          home-manager.extraSpecialArgs = {inherit dotfiles;};
         }
         nix-homebrew.darwinModules.nix-homebrew
         {

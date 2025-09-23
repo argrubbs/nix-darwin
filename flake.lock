@@ -17,22 +17,6 @@
         "type": "github"
       }
     },
-    "dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1758052599,
-        "narHash": "sha256-DrPEzMFNm0G0jvdnJ5hsxzoLkN3d3MhnvVBLSDNOul8=",
-        "owner": "argrubbs",
-        "repo": "dotfiles",
-        "rev": "2ba587ef663f08f0720b6d20b7a418d8a58578a5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "argrubbs",
-        "repo": "dotfiles",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -142,7 +126,6 @@
     },
     "root": {
       "inputs": {
-        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
