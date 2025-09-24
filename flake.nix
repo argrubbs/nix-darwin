@@ -30,7 +30,7 @@
     home-manager,
   }: {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#simple
+    # $ darwin-rebuild build --flake .#sterling
     darwinConfigurations."sterling" = nix-darwin.lib.darwinSystem {
       specialArgs = { inherit self; };
       modules = [
@@ -52,6 +52,33 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.adamgrubbs = import ./home.nix;
+        }
+      ];
+    };
+
+    # Build darwin flake using:
+    # $ darwin-rebuild build --flake .#amfam
+    darwinConfigurations."amfam" = nix-darwin.lib.darwinSystem {
+      specialArgs = { inherit self; };
+      modules = [
+        ./modules/configuration-amfam.nix
+        home-manager.darwinModules.home-manager
+        {
+          # Configure binary caches
+          nix.settings = {
+            substituters = [
+              "https://cache.nixos.org/"
+              "https://nix-community.cachix.org"
+            ];
+            trusted-public-keys = [
+              "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+            ];
+          };
+
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.amfam = import ./home-amfam.nix;
         }
       ];
     };
