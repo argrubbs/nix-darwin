@@ -11,7 +11,10 @@
     pkgs.bat
     pkgs.brave
   ];
-
+fonts.packages = with pkgs; [
+  nerd-fonts.fira-code
+  nerd-fonts.caskaydia-cove
+];   
   security.pam.services.sudo_local.touchIdAuth = true;
 
   programs._1password = {
