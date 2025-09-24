@@ -28,99 +28,17 @@
     homebrew-core,
     homebrew-cask,
     home-manager,
-  }: let
-    configuration = {pkgs, ...}: {
-      nix.enable = false;
-      nixpkgs.config.allowUnfree = true;
-      environment.systemPackages = [
-        pkgs.neovim
-        pkgs.wezterm
-        pkgs.zoxide
-        pkgs.eza
-        pkgs.fzf
-        pkgs.ripgrep
-        pkgs.bat
-        pkgs.brave
-      ];
-
-      security.pam.services.sudo_local.touchIdAuth = true;
-
-      programs._1password = {
-        enable = true;
-      };
-
-      programs._1password-gui = {
-        enable = true;
-      };
-      programs.zsh.enable = true;
-      users.users.adamgrubbs = {
-        name = "adamgrubbs";
-        home = "/Users/adamgrubbs";
-        shell = pkgs.zsh;
-      };
-
-      home-manager.backupFileExtension = "backup";
-
-      environment.systemPath = [
-        "/run/current-system/sw/bin"
-        "/usr/local/bin"
-        "/usr/bin"
-        "/bin"
-      ];
-
-      homebrew = {
-        enable = true;
-        onActivation.cleanup = "zap";
-        casks = [
-          "claude"
-          "colemak-dh"
-          "emacs-app"
-          "shortcat"
-          "brave-browser"
-        ];
-      };
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-      system.primaryUser = "adamgrubbs";
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 6;
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
-  in {
+  }: {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
     darwinConfigurations."sterling" = nix-darwin.lib.darwinSystem {
       modules = [
-        configuration
+        ./modules/configuration.nix
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.adamgrubbs = import ./home.nix;
-        }
-        nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true;
-            taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-            };
-            mutableTaps = false;
-            user = "adamgrubbs";
-            autoMigrate = true;
-          };
         }
       ];
     };
