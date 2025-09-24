@@ -9,6 +9,7 @@
     pkgs.tmux
     pkgs.stow
     pkgs.brave
+    pkgs.claude-monitor
   ];
 
   programs.zsh = {

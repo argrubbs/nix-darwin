@@ -9,7 +9,8 @@ This is a Nix-based macOS system configuration using nix-darwin and home-manager
 ## Commands
 
 ### System Management
-- **Apply system configuration**: `sudo darwin-rebuild switch --flake ~/nix#sterling`
+- **Update any Nix config**: `sudo darwin-rebuild switch --flake ~/nix#sterling`
+  - This command applies system configuration changes
   - This command is aliased as `update` in the shell
 - **Build without switching**: `darwin-rebuild build --flake ~/nix#sterling`
 - **Apply home-manager only**: `home-manager switch`
@@ -17,6 +18,7 @@ This is a Nix-based macOS system configuration using nix-darwin and home-manager
 ### Development
 - **Update flake inputs**: `nix flake update`
 - **Check flake**: `nix flake check`
+- **Clean up old packages**: `nix-collect-garbage -d`
 - **Commit changes**: Always commit any changes made by Claude to the local main git branch
 
 ## Architecture
