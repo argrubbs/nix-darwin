@@ -32,6 +32,7 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
     darwinConfigurations."sterling" = nix-darwin.lib.darwinSystem {
+      specialArgs = { inherit self; };
       modules = [
         ./modules/configuration.nix
         home-manager.darwinModules.home-manager

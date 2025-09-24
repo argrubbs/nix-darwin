@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, self, ...}: {
   nix.enable = false;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [

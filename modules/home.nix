@@ -9,7 +9,6 @@
     pkgs.tmux
     pkgs.stow
     pkgs.brave
-    pkgs.claude-code
   ];
 
   programs.zsh = {
